@@ -1,6 +1,6 @@
 # Java for GNOME-Builder
 
-This plugin uses the Eclipse-JDT-Languageserver and requires [a patched GNOME-Builder](https://gitlab.gnome.org/JCWasmx86/gnome-builder/-/tree/lsp_fix_jdtls) to have working code-actions.
+This plugin uses the Eclipse-JDT-Languageserver and requires [a patched GNOME-Builder](https://gitlab.gnome.org/JCWasmx86/gnome-builder/-/tree/main) to have working code-actions.
 
 ## Installation
 
