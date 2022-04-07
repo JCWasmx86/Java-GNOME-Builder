@@ -11,16 +11,17 @@ from gi.repository import Gio
 from gi.repository import GObject
 from gi.repository import Ide
 
-class JavaCustomCommandMapper(Ide.Object,Ide.LspCustomCommandMapper):
-	def __init__(self, *args, **kwargs):
-		super().__init__(*args, **kwargs)
-		GObject.GObject.__init__(self)
-
-	def do_map_command(self, command):
-		arguments = command.lookup_value("arguments", None)
-		return arguments.get_child_value(0)
-
-class JavaService(Ide.LspService, Ide.LspCustomCommandMapper):
+#123#class JavaCustomCommandMapper(Ide.Object,Ide.LspCustomCommandMapper):
+#123#	def __init__(self, *args, **kwargs):
+#123#		super().__init__(*args, **kwargs)
+#123#		GObject.GObject.__init__(self)
+#123#
+#123#	def do_map_command(self, command):
+#123#		arguments = command.lookup_value("arguments", None)
+#123#		return arguments.get_child_value(0)
+#123#
+#123#class JavaService(Ide.LspService, Ide.LspCustomCommandMapper):
+#124#class JavaService(Ide.LspService):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		context = self.get_context()
@@ -35,7 +36,7 @@ class JavaService(Ide.LspService, Ide.LspCustomCommandMapper):
 		except:
 			pass
 		self.set_program(os.path.expanduser("~/.local/bin/jdtls"))
-		self.mapper = JavaCustomCommandMapper()
+#123#		self.mapper = JavaCustomCommandMapper()
 
 	def do_map_command(self, command):
 		return JavaService.map_workspace_edit(command)
@@ -43,7 +44,7 @@ class JavaService(Ide.LspService, Ide.LspCustomCommandMapper):
 	def do_configure_client(self, client):
 		client.add_language("java")
 		client.connect("load-configuration", self.on_load_configuration)
-		client.register_custom_command("java.apply.workspaceEdit", self.mapper)
+#123#		client.register_custom_command("java.apply.workspaceEdit", self.mapper)
 
 	def do_configure_launcher(self, pipeline, launcher):
 		launcher.push_argv(self.metadata_workdir)
@@ -83,9 +84,9 @@ class JavaHoverProvider(Ide.LspHoverProvider):
 		self.props.priority = 100
 		JavaService.bind_client(self)
 
-class JavaCodeActionProvider(Ide.LspCodeActionProvider, Ide.CodeActionProvider):
-	def do_load(self):
-		JavaService.bind_client(self)
+#123#class JavaCodeActionProvider(Ide.LspCodeActionProvider, Ide.CodeActionProvider):
+#123#	def do_load(self):
+#123#		JavaService.bind_client(self)
 
 class JavaRenameProvider(Ide.LspRenameProvider):
 	def do_load(self):

@@ -3,12 +3,30 @@ setupFile() {
 	if [ -n "$G_VERSION" ]; then
 		cat jdtls.plugin.in|sed s/XXXXX/$G_VERSION/g > jdtls.plugin
 	else
-		cat jdtls.plugin.in|sed s/XXXXX/42.0/g > jdtls.plugin
+		cat jdtls.plugin.in|sed s/XXXXX/43.0/g > jdtls.plugin
+	fi
+	if [ "$PATCHED" == "1" ]; then
+		echo Using patched GNOME-Builder
+		sed -i s/#123#//g jdtls.plugin
+	else
+		echo Using unpatched GNOME-Builder, codeactions won\'t work
+		sed -i s/#123#.*//g jdtls.plugin
 	fi
 }
 installToLocal() {
 	cp jdtls.{py,plugin} ~/.local/share/gnome-builder/plugins
+	if [ $PATCHED == "0" ]; then
+		sed -i s/#123#.*//g ~/.local/share/gnome-builder/plugins/jdtls.py
+		sed -i s/#124#//g ~/.local/share/gnome-builder/plugins/jdtls.py
+	else
+		sed -i s/#123#//g ~/.local/share/gnome-builder/plugins/jdtls.py
+	fi
 }
+if [ "$1" == "--unpatched" ]; then
+	export PATCHED=0
+else
+	export PATCHED=1
+fi
 rm -rf tmp ~/.local/share/jdtls
 mkdir tmp
 cd tmp

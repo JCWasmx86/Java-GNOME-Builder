@@ -5,9 +5,10 @@ This plugin uses the Eclipse-JDT-Languageserver and requires [a patched GNOME-Bu
 ## Installation
 
 ```
-./install.sh
+./install.sh [--unpatched]
 ```
 
+Add `--unpatched`, if you don't want to run with a patched GNOME-Builder (It is crashing too much)
 
 ## Known issues
 
